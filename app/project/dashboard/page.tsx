@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Trash2 } from 'lucide-react';
 import { FiSearch } from "react-icons/fi";
 import Header from "@/app/header/page";
 import Image from "next/image";
@@ -40,6 +41,18 @@ const deleteProject = async (id: string) => {
     toast.error("Failed to delete project ❌");
   }
 };
+const formatDate = (dateString: string) => {
+  if (!dateString) return "-";
+
+  const d = new Date(dateString);
+
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = d.getFullYear();
+
+  return `${day}/${month}/${year}`;
+};
+
 
   return (
     <div className="flex h-screen w-full">
@@ -139,12 +152,13 @@ const deleteProject = async (id: string) => {
 
       {/* Start Date */}
       <td className="p-4">
-        {p.startDate ? p.startDate.slice(0, 10) : "-"}
+       {formatDate(p.startDate)}
+
       </td>
 
       {/* End Date */}
       <td className="p-4">
-        {p.endDate ? p.endDate.slice(0, 10) : "-"}
+       {formatDate(p.startDate)}
       </td>
 
       {/* Status */}
@@ -173,7 +187,7 @@ const deleteProject = async (id: string) => {
           onClick={() => deleteProject(p.id)}
           className="text-red-500 hover:text-red-700 font-bold text-lg"
         >
-          🗑
+         <Trash2 />
         </button>
       </td>
     </tr>

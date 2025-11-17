@@ -23,7 +23,7 @@ export default function ProjectDashboardPage() {
   return (
     <div className="p-6 flex flex-col gap-6">
 
-      <div className="bg-white rounded-xl p-6 shadow-sml">  {/* ✅ border removed */}
+      <div className="bg-white rounded-xl p-6 shadow-sml">  
 
         <div className="flex items-start justify-between mb-4">
           <h1 className="text-3xl font-semibold">{project.name}</h1>
