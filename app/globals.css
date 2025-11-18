@@ -8,10 +8,10 @@
   @apply w-full mt-2 p-3 border border-gray-300 bg-gray-50 rounded-lg outline-none focus:ring-2 focus:ring-[#3730A3] transition;
 } */
 
-/* .input {
+.input1 {
   @apply w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 text-sm
          focus:ring-2 focus:ring-[#3730A3] focus:border-gray-400 outline-none;
-} */
+} 
 .input {
   @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm 
   focus:ring-1 focus:ring-[#3730A3] focus:border-gray-400 outline-none;
@@ -39,3 +39,19 @@
 .section {
   @apply space-y-2;
 }
+
+.input-search {
+  @apply w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 text-sm
+         focus:ring-2 focus:ring-[#3730A3] focus:border-gray-400 outline-none;
+}
+/* 100% fix Chrome drag ghost opacity */
+*[draggable="true"] {
+  opacity: 1 !important;
+}
+
+*:active {
+  opacity: 1 !important;
+}
+
+
+

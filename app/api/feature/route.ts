@@ -34,12 +34,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "name and projectId are required" }, { status: 400 });
   }
 
+  // 🔥 Get last order
+  const lastFeature = await prisma.feature.findFirst({
+    where: { projectId },
+    orderBy: { order: "desc" },
+  });
+
+  const nextOrder = lastFeature ? lastFeature.order + 1 : 1;
+
   const feature = await prisma.feature.create({
-    data: { name, description, projectId }
+    data: { 
+      name, 
+      description, 
+      projectId,
+      order: nextOrder      // ⭐ SUPER IMPORTANT
+    }
   });
 
   return NextResponse.json(feature, { status: 201 });
 }
+
 
 
 // export async function DELETE(

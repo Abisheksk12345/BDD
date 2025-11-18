@@ -3,6 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface CreateScenarioDrawerProps {
   open: boolean;
@@ -39,10 +40,10 @@ export default function CreateScenarioDrawer({
 
   
   const saveScenario = async () => {
-    if (!scenarioName.trim()) {
-      alert("Scenario name is required");
-      return;
-    }
+   if (!scenarioName.trim()) {
+  toast.error("Scenario name is required");
+  return;
+}
 
     setLoading(true);
 
@@ -120,7 +121,7 @@ export default function CreateScenarioDrawer({
             >
               + Add Step
             </button>
-          </div>
+          </div> 
 
           {steps.length === 0 && (
             <div className="border p-6 rounded text-gray-400 text-center">

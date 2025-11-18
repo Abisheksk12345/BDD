@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import {prisma} from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 // -------------------------------
 // CREATE SCENARIO (POST)
@@ -16,12 +16,22 @@ export async function POST(req: Request) {
       );
     }
 
+    // ⭐ Get last scenario order under this feature
+    const lastScenario = await prisma.scenario.findFirst({
+      where: { featureId },
+      orderBy: { order: "desc" },
+    });
+
+    const nextOrder = lastScenario ? lastScenario.order + 1 : 1;
+
+    // ⭐ Create scenario with proper order
     const scenario = await prisma.scenario.create({
       data: {
         name,
         description,
         featureId,
-        testSteps: testSteps ?? [], // JSON array
+        order: nextOrder,
+        testSteps: testSteps ?? [],
       },
     });
 
@@ -35,9 +45,9 @@ export async function POST(req: Request) {
   }
 }
 
+
 // -------------------------------
-// GET SCENARIOS BY FEATURE (GET)
-// /api/scenario?featureId=xxxx
+// GET SCENARIOS BY FEATURE
 // -------------------------------
 export async function GET(req: Request) {
   try {
@@ -53,7 +63,7 @@ export async function GET(req: Request) {
 
     const scenarios = await prisma.scenario.findMany({
       where: { featureId },
-      orderBy: { createdAt: "asc" },
+      orderBy: { order: "asc" },  // ⭐ Now sort by order, not createdAt
     });
 
     return NextResponse.json(scenarios);
